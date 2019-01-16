@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "SignIn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" name="username" placeholder="user">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-default signin">Submit</button>
+</div>
+
+<script>
+    $(".signin").on("click", function () {
+        let username = $("input[name='username']").val();
+        let password = $("input[name='password']").val();
+        $.ajax({
+            url: '/Customer/SignIn',
+            type: 'POST',
+            dataType: 'json',
+            data:JSON.stringify({ UserName: username, PassWord: password }),
+            processData: false,
+            contentType: "application/json; charset=utf-8",
+            async: true,
+            success: function (result) {
+                //$(".btn-footer-parent div:nth-child(1) span").text("(" + result.countArea + ")");//area
+                //$(".btn-footer-parent div:nth-child(2) span").text("(" + result.countProductNew + ")");//product new
+                //$(".btn-footer-parent div:nth-child(3) span").text("(" + result.countProductSelling + ")");//sell
+                //$(".btn-footer-parent div:nth-child(4) span").text("(" + result.countTrack + ")");//track
+                ////$(".btn-footer-parent div:nth-child(1)>span").
+                ////console.log(result);
+            },
+            error: function (error) {
+                console.log("ERROR:" + error);
+            }
+        });
+    })
+</script>
+

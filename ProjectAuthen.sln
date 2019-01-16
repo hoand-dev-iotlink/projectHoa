@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectAuthen", "ProjectAuthen\ProjectAuthen.csproj", "{6452A0AC-441D-4943-A053-CE26F55E5B18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectService", "ProjectService\ProjectService.csproj", "{D5682711-5806-4137-B6EF-0A780793DE46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectModelCommon", "ProjectModelCommon\ProjectModelCommon.csproj", "{C091BFED-39CF-4C8A-BC00-1DE7022456EA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6452A0AC-441D-4943-A053-CE26F55E5B18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6452A0AC-441D-4943-A053-CE26F55E5B18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6452A0AC-441D-4943-A053-CE26F55E5B18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6452A0AC-441D-4943-A053-CE26F55E5B18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5682711-5806-4137-B6EF-0A780793DE46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5682711-5806-4137-B6EF-0A780793DE46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5682711-5806-4137-B6EF-0A780793DE46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5682711-5806-4137-B6EF-0A780793DE46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C091BFED-39CF-4C8A-BC00-1DE7022456EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C091BFED-39CF-4C8A-BC00-1DE7022456EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C091BFED-39CF-4C8A-BC00-1DE7022456EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C091BFED-39CF-4C8A-BC00-1DE7022456EA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
