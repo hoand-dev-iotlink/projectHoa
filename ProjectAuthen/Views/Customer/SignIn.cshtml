@@ -1,45 +1,97 @@
 ﻿
 @{
     ViewBag.Title = "SignIn";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutEmpty.cshtml";
 }
-
-<div>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" name="username" placeholder="user">
+<link href="~/Content/SignInAndUp/Signin.css" rel="stylesheet" />
+<link href="~/Content/SignInAndUp/CommonStyle.css" rel="stylesheet" />
+<script src="~/Content/assets/js/jsCheckInput.js"></script>
+<div class="container-signin">
+    <div class="form-signin">
+        <span class="tile-signin">Đăng nhập</span>
+        <span class="error-text" style="color:red;display:flex;align-items: center;justify-content: center;"></span>
+        <div class="form-group common-input" data-validate="Trùng tên đăng nhập">
+            <label for="exampleInputEmail1">Tên đăng nhập hoặc điện thoại</label>
+            <input type="text" id="exampleInputEmail1" name="username" placeholder="Tên đăng nhập hoặc điện thoại">
+            <span class="focus-input1 focus-input"></span>
+        </div>
+        <div class="form-group common-input" data-validate="Mật khẩu không chính xác">
+            <label for="exampleInputPassword1">Mật khẩu</label>
+            <input type="password" id="exampleInputPassword1" name="password" placeholder="Mật khẩu">
+            <span class="focus-input2 focus-input"></span>
+        </div>
+        <div class="text-password">
+            <a href="#" class="forgot-password">Quên mật khẩu</a>
+        </div>
+        <div class="form-buttom-signin">
+            <button type="submit" class="btn btn-default signin">ĐĂNG NHẬP</button>
+        </div>
+        <div class="label-social">
+            <p> hoặc sử dụng</p>
+        </div>
+        <div class="form-social">
+            <a href="#" class="signin-face signin-social"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="signin-google signin-social"><i class="fab fa-google"></i></a>
+        </div>
+        <div class="label-social link-signup">
+            <a href="@Url.Action("signup","Customer")"> ĐĂNG KÝ</a>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
-    </div>
-    <button type="submit" class="btn btn-default signin">Submit</button>
+</div>
+<div class="loading-page">
+    <img src="~/Images/loading.gif" />
 </div>
 
-<script>
-    $(".signin").on("click", function () {
-        let username = $("input[name='username']").val();
-        let password = $("input[name='password']").val();
-        $.ajax({
-            url: '/Customer/SignIn',
-            type: 'POST',
-            dataType: 'json',
-            data:JSON.stringify({ UserName: username, PassWord: password }),
-            processData: false,
-            contentType: "application/json; charset=utf-8",
-            async: true,
-            success: function (result) {
-                //$(".btn-footer-parent div:nth-child(1) span").text("(" + result.countArea + ")");//area
-                //$(".btn-footer-parent div:nth-child(2) span").text("(" + result.countProductNew + ")");//product new
-                //$(".btn-footer-parent div:nth-child(3) span").text("(" + result.countProductSelling + ")");//sell
-                //$(".btn-footer-parent div:nth-child(4) span").text("(" + result.countTrack + ")");//track
-                ////$(".btn-footer-parent div:nth-child(1)>span").
-                ////console.log(result);
-            },
-            error: function (error) {
-                console.log("ERROR:" + error);
-            }
-        });
-    })
-</script>
 
+<script>
+    $(function () {
+        showhide();
+        $(".signin").on("click", function () {
+            let username = $("input[name='username']").val();
+            let password = $("input[name='password']").val();
+            if (validate(username, password)) {
+                showhide();
+                $.ajax({
+                    url: '/Customer/SignIn',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: JSON.stringify({ UserName: username, PassWord: password }),
+                    processData: false,
+                    contentType: "application/json; charset=utf-8",
+                    async: true,
+                    success: function (result) {
+                        console.log(result);
+                        if (!result) {
+                            $(".error-text").text("Sai tên đăng nhập hoặc mật khẩu");
+                        } else {
+                            window.history.back();
+                        }
+                    },
+                    error: function (error) {
+                        console.log("ERROR:" + error);
+                    }
+                });
+            } else {
+
+            }
+        })
+        $("input[name='password'],input[name='username']").on("focus", function () {
+            $(this).parents(".form-group").removeClass("validate-input");
+        })
+        function validate(username, password) {
+            check = true;
+            if (!validateText(username, "", 5, 200)) {
+                $("input[name='username']").parents(".form-group").addClass("validate-input");
+                check = false;
+            }
+            if (!validateText(password, "", 5, 200)) {
+                $("input[name='password']").parents(".form-group").addClass("validate-input");
+                check = false;
+            }
+            return (check == true) ? true : false;
+        }
+    });
+    function showhide() {
+        $(".loading-page").toggle();
+    }
+</script>

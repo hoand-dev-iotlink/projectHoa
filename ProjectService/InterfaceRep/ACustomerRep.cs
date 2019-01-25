@@ -1,4 +1,5 @@
-﻿using ProjectModelCommon.ViewModel;
+﻿using ProjectModelCommon.Model;
+using ProjectModelCommon.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,10 @@ namespace ProjectService.InterfaceRep
 {
     public abstract class ACustomerRep
     {
-        public abstract bool SignIn();
+        public virtual Task<CustomerUserModel> SignIn(CustomerModel customerModel) { return Task.FromResult(new CustomerUserModel()); }
         public virtual bool Check() { return false;}
+        public virtual Task<string> SetHashPassword(string password,string hash) { return Task.FromResult(string.Empty); }
+        public virtual Task<bool> UpdateCustomerUser(CustomerUser customerUser) { return Task.FromResult(false); }
+        public virtual Task<bool> SendMail(string sendEmail,string subjectEmail,string bodyEmail) { return Task.FromResult(false); }
     }
 }
