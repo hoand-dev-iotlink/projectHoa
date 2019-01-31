@@ -46,8 +46,10 @@
     <Compile Include="Model\CustomPrincipal.cs" />
     <Compile Include="Model\LocalizationLanguages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\CommonParamDataTable.cs" />
     <Compile Include="ViewModel\CustomerModel.cs" />
     <Compile Include="ViewModel\CustomerUserModel.cs" />
+    <Compile Include="ViewModel\JQueryDataTableParamModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

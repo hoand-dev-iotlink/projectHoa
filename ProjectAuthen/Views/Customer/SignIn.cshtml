@@ -64,7 +64,8 @@
                         if (!result) {
                             $(".error-text").text("Sai tên đăng nhập hoặc mật khẩu");
                         } else {
-                            window.history.back();
+                            let urlParams = new URLSearchParams(location.search);
+                            window.location.href = urlParams.get("ReturnUrl");
                         }
                     },
                     error: function (error) {

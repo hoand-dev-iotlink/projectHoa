@@ -26,10 +26,11 @@ namespace ProjectAuthen.Controllers
         ACustomerRep customerService = new CustomerService();
         [AllowAnonymous]
         // GET: Customer
-        public ActionResult SignIn()
-
+        public ActionResult SignIn(string returnUrl)
         {
-            return View();
+            if (User == null)
+                return View();
+            return RedirectToAction("index", "home");
         }
         //[AuthoriAccessAction]
         [AllowAnonymous]
@@ -51,11 +52,18 @@ namespace ProjectAuthen.Controllers
         /// </summary>
         /// <returns></returns>
         [AllowAnonymous]
-        public ActionResult SignUp()
+        public ActionResult SignUp(string returnUrl)
         {
-            return View();
+            if (User == null)
+                return View();
+            return RedirectToAction("index","home");
         }
 
+        /// <summary>
+        /// sign up
+        /// </summary>
+        /// <param name="customerUserModel"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -114,6 +122,32 @@ namespace ProjectAuthen.Controllers
                 return false;
             }
 
+        }
+
+        /// <summary>
+        /// check email, username and phone
+        /// </summary>
+        /// <param name="customerUserModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CheckEmailUserPhone(CustomerUser customerUserModel)
+        {
+            int check = await aCustomerRep.CheckEmailUserPhone(customerUserModel);
+            return Json(check,JsonRequestBehavior.AllowGet);
+        }
+
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
+        {
+            if (this.ControllerContext.HttpContext.Request.Cookies.AllKeys.Contains("App_AuthenProject"))
+            {
+                HttpCookie cookie = this.ControllerContext.HttpContext.Request.Cookies["App_AuthenProject"];
+                cookie.Expires = DateTime.Now.AddDays(-1);
+                this.ControllerContext.HttpContext.Response.Cookies.Add(cookie);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         [OutputCache(Duration = int.MaxValue, VaryByParam = "none")]

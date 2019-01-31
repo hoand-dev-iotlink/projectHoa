@@ -14,5 +14,6 @@ namespace ProjectModelCommon.ViewModel
         public string Phone { get; set; } = string.Empty;
         public string Avatar { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
+        public DateTime? CreateTime { get; set; }
     }
 }

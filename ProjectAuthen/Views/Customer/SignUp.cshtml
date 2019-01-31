@@ -75,48 +75,48 @@
         <span class="error-text" style="color:red;display:flex;align-items: center;justify-content: center;"></span>
 
         <div class="form-group common-input" data-validate="Họ tên không hợp lệ">
-            <label for="exampleInputEmail1">Họ tên</label>
-            <input type="text" id="exampleInputEmail1" name="Name" placeholder="Họ tên">
+            <label for="exampleInput1">Họ tên</label>
+            <input type="text" id="exampleInput1" name="Name" placeholder="Họ tên">
             <span class="focus-input3 focus-input"></span>
         </div>
         <div class="form-group common-input" data-validate="Trùng tên đăng nhập">
-            <label for="exampleInputEmail1">Tên đăng nhập</label>
-            <input type="text" id="exampleInputEmail1" name="UserName" placeholder="Tên đăng nhập">
+            <label for="exampleInput2">Tên đăng nhập</label>
+            <input type="text" id="exampleInput2" name="UserName" placeholder="Tên đăng nhập">
             <span class="focus-input1 focus-input"></span>
         </div>
         <div class="form-group common-input" data-validate="Mật khẩu không chính xác">
-            <label for="exampleInputPassword1">Mật khẩu</label>
-            <input type="password" id="exampleInputPassword1" name="Password" placeholder="Mật khẩu">
+            <label for="exampleInput3">Mật khẩu</label>
+            <input type="password" id="exampleInput3" name="Password" placeholder="Mật khẩu">
             <span class="focus-input2 focus-input"></span>
         </div>
         <div class="form-group common-input" data-validate="Mật khẩu không chính xác">
-            <label for="exampleInputPassword1">Nhập lại mật khẩu</label>
-            <input type="password" id="exampleInputPassword1" name="configPassword" placeholder="Nhập lại mật khẩu">
+            <label for="exampleInput4">Nhập lại mật khẩu</label>
+            <input type="password" id="exampleInput4" name="configPassword" placeholder="Nhập lại mật khẩu">
             <span class="focus-input2 focus-input"></span>
         </div>
         <div class="form-group common-input" data-validate="Email không hợp lệ">
-            <label for="exampleInputEmail1">Địa chỉ email</label>
-            <input type="text" id="exampleInputEmail1" name="Email" placeholder="Địa chỉ email">
+            <label for="exampleInput5">Địa chỉ email</label>
+            <input type="text" id="exampleInput5" name="Email" placeholder="Địa chỉ email">
             <span class="focus-input4 focus-input"></span>
         </div>
         <div class="form-group common-input" data-validate="Số điện thoại không hợp lệ">
-            <label for="exampleInputEmail1">Số điện thoại</label>
-            <input type="text" id="exampleInputEmail1" name="Phone" placeholder="Số điện thoại">
+            <label for="exampleInput6">Số điện thoại</label>
+            <input type="text" id="exampleInput6" name="Phone" placeholder="Số điện thoại">
             <span class="focus-input5 focus-input"></span>
         </div>
         @*<div class="text-password">
-            <a href="#" class="forgot-password">Quên mật khẩu</a>
-        </div>*@
+                <a href="#" class="forgot-password">Quên mật khẩu</a>
+            </div>*@
         <div class="form-buttom-signin">
             <button type="submit" class="btn btn-default btn-signup">ĐĂNG KÝ</button>
         </div>
         @*<div class="label-social">
-            <p> hoặc sử dụng</p>
-        </div>
-        <div class="form-social">
-            <a href="#" class="signin-face signin-social"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="signin-google signin-social"><i class="fab fa-google"></i></a>
-        </div>*@
+                <p> hoặc sử dụng</p>
+            </div>
+            <div class="form-social">
+                <a href="#" class="signin-face signin-social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="signin-google signin-social"><i class="fab fa-google"></i></a>
+            </div>*@
         <div class="label-social link-signup" style="margin-top: 35px;margin-bottom: 0px;">
             <a href="@Url.Action("signin","Customer")"> ĐĂNG NHẬP</a>
         </div>
@@ -140,7 +140,7 @@
             let avatar = $("input[name='Avatar']").val();
             let name = $("input[name='Name']").val();
             let pass = $("input[name='Password']").val();
-            if (validateSignUp(name, username, pass, email, phone) && validatePasswork(pass, $("input[name='configPassword']").val())) {
+            if (validateSignUp(name, username, pass, email, phone) && CheckExitUser(name, username, pass, email, phone) && validatePasswork(pass, $("input[name='configPassword']").val())) {
                 $.ajax({
                     url: '/Customer/SignUp',
                     type: 'POST',
@@ -151,14 +151,10 @@
                         if (!result) {
                             $(".error-text").text("Lỗi hệ thông");
                         } else {
-                            window.history.back();
+                            //window.history.back();
+                            let urlParams = new URLSearchParams(location.search);
+                            window.location.href = urlParams.get("ReturnUrl");
                         }
-                        //$(".btn-footer-parent div:nth-child(1) span").text("(" + result.countArea + ")");//area
-                        //$(".btn-footer-parent div:nth-child(2) span").text("(" + result.countProductNew + ")");//product new
-                        //$(".btn-footer-parent div:nth-child(3) span").text("(" + result.countProductSelling + ")");//sell
-                        //$(".btn-footer-parent div:nth-child(4) span").text("(" + result.countTrack + ")");//track
-                        ////$(".btn-footer-parent div:nth-child(1)>span").
-                        ////console.log(result);
                     },
                     error: function (error) {
                         console.log("ERROR:" + error);
@@ -202,7 +198,7 @@
         /**
          * validate passwork
          */
-        function validatePasswork(passwork,configPasswork) {
+        function validatePasswork(passwork, configPasswork) {
             if (passwork != configPasswork) {
                 $("input[name='configPassword']").parents(".form-group").addClass("validate-input");
                 $("input[name='configPassword']").parents(".form-group").attr("data-validate", "Mật khẩu không trùng");
@@ -213,6 +209,45 @@
         $("input[name='Name'],input[name='UserName'],input[name='Password'],input[name='Email'],input[name='Phone']").on("focus", function () {
             $(this).parents(".form-group").removeClass("validate-input");
         })
+
+        function CheckExitUser(Name, UserName, Password, Email, Phone) {
+            let check = true;
+            $.ajax({
+                url: '/Customer/CheckEmailUserPhone',
+                type: 'POST',
+                data: { __RequestVerificationToken: $("[name='__RequestVerificationToken']").val(), UserName: UserName, Email: Email, Phone: Phone, Name: Name, Password: Password },
+                async: false,
+                success: function (result) {
+                    console.log(result);
+                    if (result == 0) { check = true;}
+                    else
+                        if (result == 1) {
+                            $("input[name='Email']").parents(".form-group").attr("data-validate", "Email đã tồn tại");
+                            $("input[name='Email']").parents(".form-group").addClass("validate-input");
+                            check = false;
+                        } else
+                            if (result == 2) {
+                                $("input[name='Phone']").parents(".form-group").attr("data-validate", "Số điện thoại đã tồn tại");
+                                $("input[name='Phone']").parents(".form-group").addClass("validate-input");
+                                check = false;
+                            } else
+                                if (result == 3) {
+                                    $("input[name='UserName']").parents(".form-group").attr("data-validate", "Tên đăng nhập đã tồn tại");
+                                    $("input[name='UserName']").parents(".form-group").addClass("validate-input");
+                                    check = false;
+                                }
+                    //if (!result) {
+                    //    $(".error-text").text("Lỗi hệ thống");
+                    //} else {
+                    //    window.history.back();
+                    //}
+                },
+                error: function (error) {
+                    console.log("ERROR:" + error);
+                }
+            });
+            return check;
+        }
     })
-    
+
 </script>

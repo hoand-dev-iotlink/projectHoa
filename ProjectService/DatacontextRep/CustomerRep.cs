@@ -40,6 +40,12 @@ namespace ProjectService.DatacontextRep
                 throw ex;
             }
         }
+
+        /// <summary>
+        /// update customer user
+        /// </summary>
+        /// <param name="customerUser"></param>
+        /// <returns></returns>
         public override async Task<bool> UpdateCustomerUser(CustomerUser customerUser)
         {
             try
@@ -62,6 +68,70 @@ namespace ProjectService.DatacontextRep
             {
                 throw ex;
             }
+        }
+
+        /// <summary>
+        /// check user email, user name, phone exit
+        /// </summary>
+        /// <param name="customerUserModel"></param>
+        /// <returns></returns>
+        public override async Task<int> CheckEmailUserPhone(CustomerUser customerUserModel)
+        {
+            try
+            {
+                using (var db = new DataBaseContext())
+                {
+                    int Reemail = 0, Recode=0, Reuser=0;
+                    if (!string.IsNullOrWhiteSpace(customerUserModel.UserName))
+                    {
+                        var sqlemail = string.Format("select count(*) from CommonUser where Email = '{0}'", customerUserModel.Email);
+                         Reemail = db.Database.SqlQuery<int>(sqlemail).FirstOrDefault();
+                    }
+                    if (!string.IsNullOrWhiteSpace(customerUserModel.Phone))
+                    {
+                        var sqlcode = string.Format("select count(*) from CommonUser where Phone = '{0}'", customerUserModel.Phone);
+                         Recode = db.Database.SqlQuery<int>(sqlcode).FirstOrDefault();
+                    }
+                    if (!string.IsNullOrWhiteSpace(customerUserModel.UserName))
+                    {
+                        var sqluser = string.Format("select count(*) from CommonUser where UserName = '{0}'", customerUserModel.UserName);
+                         Reuser = db.Database.SqlQuery<int>(sqluser).FirstOrDefault();
+                    }
+                    int result= (Reemail == 1) ? 1 : ((Recode == 1) ? 2 : ((Reuser == 1) ? 3 : 0));
+                    return await Task.FromResult(result);
+                }
+            }
+            catch (Exception)
+            {
+                return await Task.FromResult(0);
+            }
+            
+        }
+
+        /// <summary>
+        /// Get customer
+        /// </summary>
+        /// <param name="jQueryDataTableParamModel"></param>
+        /// <returns></returns>
+        public override async Task<List<CustomerUserModel>> GetCustomer(CommonParamDataTable commonParamDataTable)
+        {
+            List<CustomerUserModel> listCustomer = new List<CustomerUserModel>();
+            try
+            {
+                using (var db=new DataBaseContext())
+                {
+                    listCustomer = db.Database.SqlQuery<CustomerUserModel>(@"SELECT * FROM [dbo].[CommonUser] Order by CreateTime 
+  OFFSET @pagesize ROWS FETCH NEXT @pagecount ROWS ONLY",
+                 new SqlParameter("pagesize", commonParamDataTable.Page),
+                 new SqlParameter("pagecount", commonParamDataTable.Limit)).ToList();
+                }
+                return await Task.FromResult(listCustomer);
+            }
+            catch (Exception)
+            {
+                return await Task.FromResult(listCustomer);
+            }
+            
         }
     }
 }

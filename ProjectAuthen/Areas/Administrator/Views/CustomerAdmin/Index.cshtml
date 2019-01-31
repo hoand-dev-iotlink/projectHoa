@@ -1,0 +1,381 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Administrator/Views/Shared/_Layout.cshtml";
+}
+<div class="be-content">
+    <div class="page-head">
+    </div>
+    <div class="main-content container-fluid">
+        <div class="row search-table">
+            <div class="col-lg-3"><input type="text" name="SearchName" class="form-control" placeholder="Tìm theo tên" /></div>
+        </div>
+        <div class="row">
+            <div class="panel-body">
+                <table id="table-customer" class="table table-striped table-hover table-fw-widget" style="border: 1px solid #d4d2d2;">
+                    <thead style="background: #7bb1e094;">
+                        <tr>
+                            <th></th>
+                            <th>STT</th>
+                            <th>Tên khách hàng</th>
+                            <th>Email</th>
+                            <th>Số điện thoại</th>
+                            <th>Tên đăng nhập</th>
+                            <th>Ngày tạo</th>
+                            <th>Hoạt động</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="be-right-sidebar">
+    @*<div class="sb-content">
+        <div class="tab-navigation">
+            <ul role="tablist" class="nav nav-tabs nav-justified">
+                <li role="presentation" class="active"><a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">Chat</a></li>
+                <li role="presentation"><a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">Todo</a></li>
+                <li role="presentation"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Settings</a></li>
+            </ul>
+        </div>
+        <div class="tab-panel">
+            <div class="tab-content">
+                <div id="tab1" role="tabpanel" class="tab-pane tab-chat active">
+                    <div class="chat-contacts">
+                        <div class="chat-sections">
+                            <div class="be-scroller">
+                                <div class="content">
+                                    <h2>Recent</h2>
+                                    <div class="contact-list contact-list-recent">
+                                        <div class="user">
+                                            <a href="#">
+                                                <img src="assets/img/avatar1.png" alt="Avatar">
+                                                <div class="user-data"><span class="status away"></span><span class="name">Claire Sassu</span><span class="message">Can you share the...</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="user">
+                                            <a href="#">
+                                                <img src="assets/img/avatar2.png" alt="Avatar">
+                                                <div class="user-data"><span class="status"></span><span class="name">Maggie jackson</span><span class="message">I confirmed the info.</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="user">
+                                            <a href="#">
+                                                <img src="assets/img/avatar3.png" alt="Avatar">
+                                                <div class="user-data"><span class="status offline"></span><span class="name">Joel King		</span><span class="message">Ready for the meeti...</span></div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <h2>Contacts</h2>
+                                    <div class="contact-list">
+                                        <div class="user">
+                                            <a href="#">
+                                                <img src="assets/img/avatar4.png" alt="Avatar">
+                                                <div class="user-data2"><span class="status"></span><span class="name">Mike Bolthort</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="user">
+                                            <a href="#">
+                                                <img src="assets/img/avatar5.png" alt="Avatar">
+                                                <div class="user-data2"><span class="status"></span><span class="name">Maggie jackson</span></div>
+                                            </a>
+                                        </div>
+                                        <div class="user">
+                                            <a href="#">
+                                                <img src="assets/img/avatar6.png" alt="Avatar">
+                                                <div class="user-data2"><span class="status offline"></span><span class="name">Jhon Voltemar</span></div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom-input">
+                            <input type="text" placeholder="Search..." name="q"><span class="mdi mdi-search"></span>
+                        </div>
+                    </div>
+                    <div class="chat-window">
+                        <div class="title">
+                            <div class="user">
+                                <img src="assets/img/avatar2.png" alt="Avatar">
+                                <h2>Maggie jackson</h2><span>Active 1h ago</span>
+                            </div><span class="icon return mdi mdi-chevron-left"></span>
+                        </div>
+                        <div class="chat-messages">
+                            <div class="be-scroller">
+                                <div class="content">
+                                    <ul>
+                                        <li class="friend">
+                                            <div class="msg">Hello</div>
+                                        </li>
+                                        <li class="self">
+                                            <div class="msg">Hi, how are you?</div>
+                                        </li>
+                                        <li class="friend">
+                                            <div class="msg">Good, I'll need support with my pc</div>
+                                        </li>
+                                        <li class="self">
+                                            <div class="msg">Sure, just tell me what is going on with your computer?</div>
+                                        </li>
+                                        <li class="friend">
+                                            <div class="msg">I don't know it just turns off suddenly</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-input">
+                            <div class="input-wrapper">
+                                <span class="photo mdi mdi-camera"></span>
+                                <input type="text" placeholder="Message..." name="q" autocomplete="off"><span class="send-msg mdi mdi-mail-send"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab2" role="tabpanel" class="tab-pane tab-todo">
+                    <div class="todo-container">
+                        <div class="todo-wrapper">
+                            <div class="be-scroller">
+                                <div class="todo-content">
+                                    <span class="category-title">Today</span>
+                                    <ul class="todo-list">
+                                        <li>
+                                            <div class="be-checkbox be-checkbox-sm">
+                                                <span class="delete mdi mdi-delete"></span>
+                                                <input id="todo1" type="checkbox" checked="">
+                                                <label for="todo1">Initialize the project</label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="be-checkbox be-checkbox-sm">
+                                                <span class="delete mdi mdi-delete"></span>
+                                                <input id="todo2" type="checkbox">
+                                                <label for="todo2">Create the main structure</label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="be-checkbox be-checkbox-sm">
+                                                <span class="delete mdi mdi-delete"></span>
+                                                <input id="todo3" type="checkbox">
+                                                <label for="todo3">Updates changes to GitHub</label>
+                                            </div>
+                                        </li>
+                                    </ul><span class="category-title">Tomorrow</span>
+                                    <ul class="todo-list">
+                                        <li>
+                                            <div class="be-checkbox be-checkbox-sm">
+                                                <span class="delete mdi mdi-delete"></span>
+                                                <input id="todo4" type="checkbox">
+                                                <label for="todo4">Initialize the project</label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="be-checkbox be-checkbox-sm">
+                                                <span class="delete mdi mdi-delete"></span>
+                                                <input id="todo5" type="checkbox">
+                                                <label for="todo5">Create the main structure</label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="be-checkbox be-checkbox-sm">
+                                                <span class="delete mdi mdi-delete"></span>
+                                                <input id="todo6" type="checkbox">
+                                                <label for="todo6">Updates changes to GitHub</label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="be-checkbox be-checkbox-sm">
+                                                <span class="delete mdi mdi-delete"></span>
+                                                <input id="todo7" type="checkbox">
+                                                <label for="todo7" title="This task is too long to be displayed in a normal space!">This task is too long to be displayed in a normal space!</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom-input">
+                            <input type="text" placeholder="Create new task..." name="q"><span class="mdi mdi-plus"></span>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab3" role="tabpanel" class="tab-pane tab-settings">
+                    <div class="settings-wrapper">
+                        <div class="be-scroller">
+                            <span class="category-title">General</span>
+                            <ul class="settings-list">
+                                <li>
+                                    <div class="switch-button switch-button-sm">
+                                        <input type="checkbox" checked="" name="st1" id="st1"><span>
+                                            <label for="st1"></label>
+                                        </span>
+                                    </div><span class="name">Available</span>
+                                </li>
+                                <li>
+                                    <div class="switch-button switch-button-sm">
+                                        <input type="checkbox" checked="" name="st2" id="st2"><span>
+                                            <label for="st2"></label>
+                                        </span>
+                                    </div><span class="name">Enable notifications</span>
+                                </li>
+                                <li>
+                                    <div class="switch-button switch-button-sm">
+                                        <input type="checkbox" checked="" name="st3" id="st3"><span>
+                                            <label for="st3"></label>
+                                        </span>
+                                    </div><span class="name">Login with Facebook</span>
+                                </li>
+                            </ul><span class="category-title">Notifications</span>
+                            <ul class="settings-list">
+                                <li>
+                                    <div class="switch-button switch-button-sm">
+                                        <input type="checkbox" name="st4" id="st4"><span>
+                                            <label for="st4"></label>
+                                        </span>
+                                    </div><span class="name">Email notifications</span>
+                                </li>
+                                <li>
+                                    <div class="switch-button switch-button-sm">
+                                        <input type="checkbox" checked="" name="st5" id="st5"><span>
+                                            <label for="st5"></label>
+                                        </span>
+                                    </div><span class="name">Project updates</span>
+                                </li>
+                                <li>
+                                    <div class="switch-button switch-button-sm">
+                                        <input type="checkbox" checked="" name="st6" id="st6"><span>
+                                            <label for="st6"></label>
+                                        </span>
+                                    </div><span class="name">New comments</span>
+                                </li>
+                                <li>
+                                    <div class="switch-button switch-button-sm">
+                                        <input type="checkbox" name="st7" id="st7"><span>
+                                            <label for="st7"></label>
+                                        </span>
+                                    </div><span class="name">Chat messages</span>
+                                </li>
+                            </ul><span class="category-title">Workflow</span>
+                            <ul class="settings-list">
+                                <li>
+                                    <div class="switch-button switch-button-sm">
+                                        <input type="checkbox" name="st8" id="st8"><span>
+                                            <label for="st8"></label>
+                                        </span>
+                                    </div><span class="name">Deploy on commit</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+</nav>
+<script src="~/Content/assets/lib/datatables.net/js/jquery.dataTables.js"></script>
+<link href="~/Content/assets/lib/datatables.net-bs/css/dataTables.bootstrap.css" rel="stylesheet" />
+<script src="~/Content/assets/lib/datatables.net-bs/js/dataTables.bootstrap.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var count = 0;
+        var t = $('#table-customer').DataTable({
+            "bFilter": false,
+            "bProcessing": true,
+            "bServerSide": true,
+            "scrollX": false,
+            "autoWidth": true,
+            "sAjaxSource": '/Administrator/CustomerAdmin/GetCustomer',
+            "fnDrawCallback": function (oSettings) { },
+            "sPaginationType": "full_numbers",
+            "bStateSave": true,
+            "pageLength": 2,
+            "lengthMenu": [[2, 25, 50, 100], [2, 25, 50, 100]],
+            "fnServerData": function (sSource, aoData, fnCallback, oSettings) {
+                oSettings.jqXHR = $.ajax({
+                    "dataType": 'json',
+                    "type": "POST",
+                    "url": sSource,
+                    "data": aoData,
+                    "success": function (data) {
+                        //restIndex();
+                        count = 0;
+                        if (data.Result != undefined) {
+                            console.log(data.ReturnData);
+
+                        } else {
+                            fnCallback(data);
+                        }
+                    },
+                    "error": function (e) {
+                        if (e.status == 401) {
+                            window.location.reload();
+                        } else {
+
+                        }
+                    }
+                });
+            },
+            "fnServerParams": function (aoData) {
+                aoData.push(
+                    { "name": "SSearchValue1", "value": $("input[name='SearchName']").val() }
+                );
+            },
+            "aoColumns": [
+                {
+                    mData: "Id",
+                    bVisible: false,
+                    defaultContent: ""
+                },
+                {
+                    sTitle: 'STT', data: function (d) {
+                        count = count + 1;
+                        return count;
+                    }, sWidth: '5%'
+                },
+                { sTitle: "Tên khách hàng", mData: 'Name'},
+                { sTitle: 'Email', mData: 'Email', sWidth: '20%' },
+                { sTitle: 'Số điện thoại', mData: 'Phone', sWidth: '10%' },
+                { sTitle: 'Tên đăng nhập', mData: 'Name', sWidth: '15%' },
+                { sTitle: 'Ngày tạo', mData: 'CreateTime', sWidth: '10%' },
+                {
+                    sTitle: 'Hoạt động', data: function (d) {
+                        let edit = '<a href="@Url.Action("UpdateCustomer", "CustomerAdmin", new { Id = "changeId" })" title="Chỉnh sửa"><i class="icon mdi mdi-pencil-box"></i></a>'.replace("changeId", d.Id);
+                        let delete1 = '<a href="@Url.Action("DeleteCustomer", "CustomerAdmin", new { Id = "changeId" })" title="Xóa"><i class="icon mdi mdi-delete"></i></a>'.replace("changeId",d.Id);
+                        return "<div>" + edit + delete1 + "</div>";
+                    }
+                },
+            ],
+            "language": {
+                "lengthMenu": "@T("Admin.Page.ShowTable") _MENU_ ",
+                "info": "@T("Admin.Page.ShowTable") _START_ @T("Admin.Page.ToTable") _END_ @T("Admin.Page.OfTable") _TOTAL_ ",
+                "infoEmpty": "@T("Admin.Page.ShowTable") 0 @T("Admin.Page.ToTable") 0 @T("Admin.Page.OfTable") 0 ",
+                "paginate": {
+                    "first": "",
+                    "last": "",
+                    "next": '<i class="mdi mdi-chevron-right"></i>',
+                    "previous": '<i class="mdi mdi-chevron-left"></i>',
+                },
+            },
+            "columnDefs": [{
+                "searchable": false,
+                "orderable": false,
+                "targets": [0,1,2,3,4,5,7]
+            }],
+            select: true,
+            "order": [6, "asc"]
+        });
+        $("input[name='SearchName']").keyup(function () {
+            t.ajax.reload();
+        });
+    });
+
+</script>
+<style>
+    .mdi-delete:before, .mdi-pencil-box:before {
+        font-size: 25px;
+    }
+    a > i.mdi-delete {
+        color: #f35644;
+    }
+</style>
