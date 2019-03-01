@@ -46,10 +46,14 @@ namespace ProjectAuthen.Areas.Administrator.Controllers
                 //        break;
                 //}
 
-                // set page, limit
-                commonParamDataTable.Page = (jQueryDataTableParamModel.IDisplayStart / jQueryDataTableParamModel.IDisplayLength) + 1;
-                commonParamDataTable.Limit = jQueryDataTableParamModel.IDisplayLength;
+                string search = jQueryDataTableParamModel.SSearchValue1 != null ? jQueryDataTableParamModel.SSearchValue1 : "";
 
+                // set page, limit
+                int munberPage = (jQueryDataTableParamModel.IDisplayStart / jQueryDataTableParamModel.IDisplayLength);
+                commonParamDataTable.Page = (jQueryDataTableParamModel.IDisplayStart / jQueryDataTableParamModel.IDisplayLength) + 1; //(munberPage > 1)? (munberPage + 1):0;
+                commonParamDataTable.Limit = jQueryDataTableParamModel.IDisplayLength;
+                commonParamDataTable.Search = search;
+                int total = 0;
                 List <CustomerUserModel> ss= await aCustomerRep.GetCustomer(commonParamDataTable);
                 return Json(new
                 {

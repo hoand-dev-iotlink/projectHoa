@@ -81,23 +81,23 @@ namespace ProjectService.DatacontextRep
             {
                 using (var db = new DataBaseContext())
                 {
-                    int Reemail = 0, Recode=0, Reuser=0;
+                    int Reemail = 0, Recode = 0, Reuser = 0;
                     if (!string.IsNullOrWhiteSpace(customerUserModel.UserName))
                     {
                         var sqlemail = string.Format("select count(*) from CommonUser where Email = '{0}'", customerUserModel.Email);
-                         Reemail = db.Database.SqlQuery<int>(sqlemail).FirstOrDefault();
+                        Reemail = db.Database.SqlQuery<int>(sqlemail).FirstOrDefault();
                     }
                     if (!string.IsNullOrWhiteSpace(customerUserModel.Phone))
                     {
                         var sqlcode = string.Format("select count(*) from CommonUser where Phone = '{0}'", customerUserModel.Phone);
-                         Recode = db.Database.SqlQuery<int>(sqlcode).FirstOrDefault();
+                        Recode = db.Database.SqlQuery<int>(sqlcode).FirstOrDefault();
                     }
                     if (!string.IsNullOrWhiteSpace(customerUserModel.UserName))
                     {
                         var sqluser = string.Format("select count(*) from CommonUser where UserName = '{0}'", customerUserModel.UserName);
-                         Reuser = db.Database.SqlQuery<int>(sqluser).FirstOrDefault();
+                        Reuser = db.Database.SqlQuery<int>(sqluser).FirstOrDefault();
                     }
-                    int result= (Reemail == 1) ? 1 : ((Recode == 1) ? 2 : ((Reuser == 1) ? 3 : 0));
+                    int result = (Reemail == 1) ? 1 : ((Recode == 1) ? 2 : ((Reuser == 1) ? 3 : 0));
                     return await Task.FromResult(result);
                 }
             }
@@ -105,7 +105,7 @@ namespace ProjectService.DatacontextRep
             {
                 return await Task.FromResult(0);
             }
-            
+
         }
 
         /// <summary>
@@ -118,20 +118,27 @@ namespace ProjectService.DatacontextRep
             List<CustomerUserModel> listCustomer = new List<CustomerUserModel>();
             try
             {
-                using (var db=new DataBaseContext())
+                var count = new SqlParameter();
+                count.ParameterName = "@total";
+                count.Direction = System.Data.ParameterDirection.Output;
+                count.SqlDbType = System.Data.SqlDbType.Int;
+                using (var db = new DataBaseContext())
                 {
-                    listCustomer = db.Database.SqlQuery<CustomerUserModel>(@"SELECT * FROM [dbo].[CommonUser] Order by CreateTime 
-  OFFSET @pagesize ROWS FETCH NEXT @pagecount ROWS ONLY",
-                 new SqlParameter("pagesize", commonParamDataTable.Page),
-                 new SqlParameter("pagecount", commonParamDataTable.Limit)).ToList();
+                    listCustomer = db.Database.SqlQuery<CustomerUserModel>(@"GetAllCommonUser @pagesize,@pagecount,@searchValue,@checkOrder,@total out",
+                     new SqlParameter("pagesize", commonParamDataTable.Page),
+                     new SqlParameter("pagecount", commonParamDataTable.Limit),
+                     new SqlParameter("searchValue", commonParamDataTable.Search),
+                     new SqlParameter("checkOrder", (commonParamDataTable.OrderBy).ToLower().Contains("asc") ? 0 : 1),
+                     count).ToList();
                 }
+                //total = Convert.ToInt32(count.Value);
                 return await Task.FromResult(listCustomer);
             }
             catch (Exception)
             {
                 return await Task.FromResult(listCustomer);
             }
-            
+
         }
     }
 }
